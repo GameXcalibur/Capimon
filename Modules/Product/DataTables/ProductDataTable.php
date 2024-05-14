@@ -23,12 +23,7 @@ class ProductDataTable extends DataTable
                 $url = $data->getFirstMediaUrl('images', 'thumb');
                 return '<img src="'.$url.'" border="0" width="50" class="img-thumbnail" align="center"/>';
             })
-            ->addColumn('product_price', function ($data) {
-                return format_currency($data->product_price);
-            })
-            ->addColumn('product_quantity', function ($data) {
-                return $data->product_quantity . ' ' . $data->product_unit;
-            })
+
             ->rawColumns(['product_image']);
     }
 
@@ -71,19 +66,25 @@ class ProductDataTable extends DataTable
                 ->className('text-center align-middle'),
 
             Column::make('product_code')
-                ->title('Code')
+                ->title('Identifier')
                 ->className('text-center align-middle'),
 
             Column::computed('product_price')
                 ->title('Price')
+                ->visible(false)
+
                 ->className('text-center align-middle'),
 
             Column::computed('product_quantity')
                 ->title('Quantity')
+                ->visible(false)
+
                 ->className('text-center align-middle'),
+                
 
             Column::make('category.category_name')
-                ->title('Category')
+                ->title('Site')
+                
                 ->className('text-center align-middle'),
 
             Column::computed('action')

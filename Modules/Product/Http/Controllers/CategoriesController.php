@@ -32,7 +32,7 @@ class CategoriesController extends Controller
             'category_name' => $request->category_name,
         ]);
 
-        toast('Product Category Created!', 'success');
+        toast('Site Created!', 'success');
 
         return redirect()->back();
     }
@@ -60,7 +60,7 @@ class CategoriesController extends Controller
             'category_name' => $request->category_name,
         ]);
 
-        toast('Product Category Updated!', 'info');
+        toast('Site Updated!', 'info');
 
         return redirect()->route('product-categories.index');
     }
@@ -77,7 +77,7 @@ class CategoriesController extends Controller
 
         $category->delete();
 
-        toast('Product Category Deleted!', 'warning');
+        toast('Site Deleted!', 'warning');
 
         return redirect()->route('product-categories.index');
     }

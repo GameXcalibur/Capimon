@@ -7,6 +7,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Modules\Expense\Entities\Expense;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Category;
+
 use Modules\Purchase\Entities\Purchase;
 use Modules\Purchase\Entities\PurchasePayment;
 use Modules\PurchasesReturn\Entities\PurchaseReturn;
@@ -34,8 +36,16 @@ class HomeController extends Controller
         $revenue = ($sales - $sale_returns) / 100;
         $profit = $revenue - $product_costs;
 
+        $num_machines = Product::count();
+        $num_sites = Category::count();
+
+
+
         return view('home', [
             'revenue'          => $revenue,
+            'num_machines'          => $num_machines,
+            'num_sites'          => $num_sites,
+
             'sale_returns'     => $sale_returns / 100,
             'purchase_returns' => $purchase_returns / 100,
             'profit'           => $profit

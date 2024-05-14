@@ -11,13 +11,13 @@ $(document).ready(function () {
       data: {
         labels: response.sales.original.days,
         datasets: [{
-          label: 'Sales',
+          label: 'Coin In',
           data: response.sales.original.data,
           backgroundColor: ['#6366F1'],
           borderColor: ['#6366F1'],
           borderWidth: 1
         }, {
-          label: 'Purchases',
+          label: 'Coin Out',
           data: response.purchases.original.data,
           backgroundColor: ['#A5B4FC'],
           borderColor: ['#A5B4FC'],
@@ -38,7 +38,7 @@ $(document).ready(function () {
     var currentMonthChart = new Chart(overviewChart, {
       type: 'doughnut',
       data: {
-        labels: ['Sales', 'Purchases', 'Expenses'],
+        labels: ['Coin In', 'Coin Out', 'Expenses'],
         datasets: [{
           data: [response.sales, response.purchases, response.expenses],
           backgroundColor: ['#F59E0B', '#0284C7', '#EF4444'],
@@ -55,13 +55,13 @@ $(document).ready(function () {
       data: {
         labels: response.months,
         datasets: [{
-          label: 'Payment Sent',
+          label: 'Coin In',
           data: response.payment_sent,
           fill: false,
           borderColor: '#EA580C',
           tension: 0
         }, {
-          label: 'Payment Received',
+          label: 'Coin Out',
           data: response.payment_received,
           fill: false,
           borderColor: '#2563EB',

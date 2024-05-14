@@ -7,6 +7,9 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
+
+    public const HOME = '/home';
+
     /**
      * The module namespace to assume when generating URLs to actions.
      *

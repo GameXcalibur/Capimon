@@ -48,7 +48,8 @@ class LoginController extends Controller
                 'account_deactivated' => 'Your account is deactivated! Please contact with Super Admin.'
             ]);
         }
+        return redirect()->route('home')->withInput($request->all());
 
-        return next($request);
+        //return next($request);
     }
 }

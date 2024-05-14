@@ -20,7 +20,7 @@
                         </div>
                         <div>
                             <div class="text-value text-primary">{{ format_currency($revenue) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Revenue</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Coin In</div>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <div class="text-value text-warning">{{ format_currency($sale_returns) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Sales Return</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Coin Out</div>
                         </div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                             <i class="bi bi-arrow-return-right font-2xl"></i>
                         </div>
                         <div>
-                            <div class="text-value text-success">{{ format_currency($purchase_returns) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Purchases Return</div>
+                            <div class="text-value text-success">{{ $num_machines ?? '0' }} / {{ $num_sites ?? '0' }}</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Machines / Sites</div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <div class="col-lg-7">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header">
-                        Sales & Purchases of Last 7 Days
+                        Coin In & Coin Out of Last 7 Days
                     </div>
                     <div class="card-body">
                         <canvas id="salesPurchasesChart"></canvas>
