@@ -50,8 +50,13 @@ class ProductController extends Controller
         abort_if(Gate::denies('show_products'), 403);
         $events = \DB::table('cme'.\Auth::user()->customers_id)->where('AssetId', $product->product_code)->get();
         foreach($events as &$event){
+            if($event->EventType == 2 || $event->EventType == 3)
+                $event->Arg2 = 'R'.$event->Arg2/100;
+            else{
+                $event->Arg2 = '-';
+            }
             $event->EventType = CmEventType::where('EventId', $event->EventType)->first()->EventName;
-            $event->Arg2 = $event->Arg2/100;
+
 
         }
         return view('product::products.show', compact('product', 'events'));
