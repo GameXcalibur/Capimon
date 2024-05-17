@@ -62,7 +62,7 @@
                         </div>
                         <div>
                             <div class="text-value text-info">{{ format_currency($profit) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Profit</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Money In Machines</div>
                         </div>
                     </div>
                 </div>

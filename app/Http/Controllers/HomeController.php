@@ -9,6 +9,12 @@ use Modules\Expense\Entities\Expense;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Category;
 
+use App\Models\CmAsset;
+use App\Models\CmEventType;
+use App\Models\CmSite;
+
+
+
 use Modules\Purchase\Entities\Purchase;
 use Modules\Purchase\Entities\PurchasePayment;
 use Modules\PurchasesReturn\Entities\PurchaseReturn;
@@ -22,6 +28,12 @@ class HomeController extends Controller
 {
 
     public function index() {
+        //$machines = CmAsset::where('CustomerId', \Auth::user()->customers_id)->get();
+
+        $totalCoinIn = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 2)->sum('Arg2');
+        $totalCoinOut = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 3)->sum('Arg2');
+
+
         $sales = Sale::completed()->sum('total_amount');
         $sale_returns = SaleReturn::completed()->sum('total_amount');
         $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
@@ -34,21 +46,21 @@ class HomeController extends Controller
         }
 
         $revenue = ($sales - $sale_returns) / 100;
-        $profit = $revenue - $product_costs;
+        $profit = $totalCoinIn - $totalCoinOut;
 
-        $num_machines = Product::count();
+        $num_machines = CmAsset::count();
         $num_sites = Category::count();
 
 
 
         return view('home', [
-            'revenue'          => $revenue,
+            'revenue'          => $totalCoinIn/100,
             'num_machines'          => $num_machines,
             'num_sites'          => $num_sites,
 
-            'sale_returns'     => $sale_returns / 100,
+            'sale_returns'     => $totalCoinOut / 100,
             'purchase_returns' => $purchase_returns / 100,
-            'profit'           => $profit
+            'profit'           => $profit/100
         ]);
     }
 
@@ -56,19 +68,24 @@ class HomeController extends Controller
     public function currentMonthChart() {
         abort_if(!request()->ajax(), 404);
 
-        $currentMonthSales = Sale::where('status', 'Completed')->whereMonth('date', date('m'))
+
+        $totalCoinIn = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 2)
+        ->whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
-                ->sum('total_amount') / 100;
-        $currentMonthPurchases = Purchase::where('status', 'Completed')->whereMonth('date', date('m'))
+                ->sum('Arg2') / 100;
+
+        $totalCoinOut = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 3)
+        ->whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
-                ->sum('total_amount') / 100;
+                ->sum('Arg2') / 100;
+
         $currentMonthExpenses = Expense::whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
                 ->sum('amount') / 100;
 
         return response()->json([
-            'sales'     => $currentMonthSales,
-            'purchases' => $currentMonthPurchases,
+            'sales'     => $totalCoinIn,
+            'purchases' => $totalCoinOut,
             'expenses'  => $currentMonthExpenses
         ]);
     }
@@ -94,64 +111,39 @@ class HomeController extends Controller
         }
 
         $date_range = Carbon::today()->subYear()->format('Y-m-d');
+        $totalCoinIn = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 2)
+        ->select([
+            DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
+            DB::raw("SUM(Arg2) as amount")
+        ])
+        ->groupBy('month')->orderBy('month')
+        ->get()->pluck('amount', 'month');
 
-        $sale_payments = SalePayment::where('date', '>=', $date_range)
-            ->select([
-                DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
-                DB::raw("SUM(amount) as amount")
-            ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
 
-        $sale_return_payments = SaleReturnPayment::where('date', '>=', $date_range)
-            ->select([
-                DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
-                DB::raw("SUM(amount) as amount")
-            ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
+        $totalCoinOut = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 3)
+        ->select([
+            DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
+            DB::raw("SUM(Arg2) as amount")
+        ])
+        ->groupBy('month')->orderBy('month')
+        ->get()->pluck('amount', 'month');
 
-        $purchase_payments = PurchasePayment::where('date', '>=', $date_range)
-            ->select([
-                DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
-                DB::raw("SUM(amount) as amount")
-            ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
 
-        $purchase_return_payments = PurchaseReturnPayment::where('date', '>=', $date_range)
-            ->select([
-                DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
-                DB::raw("SUM(amount) as amount")
-            ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
 
-        $expenses = Expense::where('date', '>=', $date_range)
-            ->select([
-                DB::raw("DATE_FORMAT(date, '%m-%Y') as month"),
-                DB::raw("SUM(amount) as amount")
-            ])
-            ->groupBy('month')->orderBy('month')
-            ->get()->pluck('amount', 'month');
-
-        $payment_received = array_merge_numeric_values($sale_payments, $purchase_return_payments);
-        $payment_sent = array_merge_numeric_values($purchase_payments, $sale_return_payments, $expenses);
-
-        $dates_received = $dates->merge($payment_received);
-        $dates_sent = $dates->merge($payment_sent);
+        $dates_received = $dates->merge($totalCoinIn);
+        $dates_sent = $dates->merge($totalCoinOut);
 
         $received_payments = [];
         $sent_payments = [];
         $months = [];
 
         foreach ($dates_received as $key => $value) {
-            $received_payments[] = $value;
+            $received_payments[] = $value/100;
             $months[] = $key;
         }
 
         foreach ($dates_sent as $key => $value) {
-            $sent_payments[] = $value;
+            $sent_payments[] = $value/100;
         }
 
         return response()->json([
@@ -169,18 +161,20 @@ class HomeController extends Controller
         }
 
         $date_range = Carbon::today()->subDays(6);
+        $totalCoinIn = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 2)
+        ->where('date', '>=', $date_range)
+        ->groupBy(DB::raw("DATE_FORMAT(date,'%d-%m-%y')"))
+        ->orderBy('date')
+        ->get([
+            DB::raw(DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date")),
+            DB::raw('SUM(Arg2) AS count'),
+        ])
+        ->pluck('count', 'date');
 
-        $sales = Sale::where('status', 'Completed')
-            ->where('date', '>=', $date_range)
-            ->groupBy(DB::raw("DATE_FORMAT(date,'%d-%m-%y')"))
-            ->orderBy('date')
-            ->get([
-                DB::raw(DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date")),
-                DB::raw('SUM(total_amount) AS count'),
-            ])
-            ->pluck('count', 'date');
 
-        $dates = $dates->merge($sales);
+
+
+        $dates = $dates->merge($totalCoinIn);
 
         $data = [];
         $days = [];
@@ -202,17 +196,18 @@ class HomeController extends Controller
 
         $date_range = Carbon::today()->subDays(6);
 
-        $purchases = Purchase::where('status', 'Completed')
-            ->where('date', '>=', $date_range)
-            ->groupBy(DB::raw("DATE_FORMAT(date,'%d-%m-%y')"))
-            ->orderBy('date')
-            ->get([
-                DB::raw(DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date")),
-                DB::raw('SUM(total_amount) AS count'),
-            ])
-            ->pluck('count', 'date');
+        $totalCoinOut = \DB::table('cme'.\Auth::user()->customers_id)->where('EventType', 3)
+        ->where('date', '>=', $date_range)
+        ->groupBy(DB::raw("DATE_FORMAT(date,'%d-%m-%y')"))
+        ->orderBy('date')
+        ->get([
+            DB::raw(DB::raw("DATE_FORMAT(date,'%d-%m-%y') as date")),
+            DB::raw('SUM(Arg2) AS count'),
+        ])
+        ->pluck('count', 'date');
 
-        $dates = $dates->merge($purchases);
+
+        $dates = $dates->merge($totalCoinOut);
 
         $data = [];
         $days = [];

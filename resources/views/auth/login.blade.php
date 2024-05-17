@@ -47,10 +47,10 @@
                                       <i class="bi bi-person"></i>
                                     </span>
                                 </div>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                       name="email" value="{{ old('email') }}"
-                                       placeholder="Email">
-                                @error('email')
+                                <input type="number" class="form-control @error('customers_id') is-invalid @enderror"
+                                       name="customers_id" value="{{ old('customers_id') }}"
+                                       placeholder="Customer ID">
+                                @error('customers_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>

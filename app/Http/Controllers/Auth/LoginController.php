@@ -52,4 +52,21 @@ class LoginController extends Controller
 
         //return next($request);
     }
+    public function username()
+    {
+        return 'customers_id';
+    }
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            'customers_id' => 'required',
+            'password' => 'required|string',
+        ]);
+    }
+
+    protected function credentials(Request $request)
+    {
+        return array_merge($request->only('customers_id', 'password'));
+    }
+
 }
