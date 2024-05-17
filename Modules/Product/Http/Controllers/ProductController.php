@@ -12,6 +12,7 @@ use Modules\Product\Entities\Product;
 use Modules\Product\Http\Requests\StoreProductRequest;
 use Modules\Product\Http\Requests\UpdateProductRequest;
 use Modules\Upload\Entities\Upload;
+use App\Models\CmEventType;
 
 class ProductController extends Controller
 {
@@ -48,7 +49,11 @@ class ProductController extends Controller
     public function show(Product $product) {
         abort_if(Gate::denies('show_products'), 403);
         $events = \DB::table('cme'.\Auth::user()->customers_id)->where('AssetId', $product->product_code)->get();
+        foreach($events as &$event){
+            $event->EventType = CmEventType::where('EventId', $event->EventType)->first()->EventName;
+            $event->Arg2 = $event->Arg2/100;
 
+        }
         return view('product::products.show', compact('product', 'events'));
     }
 

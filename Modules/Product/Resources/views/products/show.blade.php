@@ -53,8 +53,8 @@
                                 @foreach ($events as $event)
 
                                 <tr>
-                                    <th></th>
-                                            <td>{{$event->date}} : {{$event->EventType}} : {{$event->Arg2}}</td>
+                                    <th>{{$event->date}}</th>
+                                            <td>{{$event->EventType}} : {{$event->Arg2}}</td>
                                             
                                         
                                 </tr>
