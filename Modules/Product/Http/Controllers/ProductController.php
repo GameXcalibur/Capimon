@@ -47,8 +47,9 @@ class ProductController extends Controller
 
     public function show(Product $product) {
         abort_if(Gate::denies('show_products'), 403);
+        $events = \DB::table('cme'.\Auth::user()->customers_id)->where('AssetId', $product->product_code)->get();
 
-        return view('product::products.show', compact('product'));
+        return view('product::products.show', compact('product', 'events'));
     }
 
 

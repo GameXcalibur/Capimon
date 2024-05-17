@@ -44,8 +44,24 @@
 
                                 <tr>
                                     <th>Events</th>
-                                    <td>No Recorded Events</td>
+                                    @if (!$events)
+                                        <td>No Recorded Events</td>
+                                        
+                                    @endif
                                 </tr>
+                                @if ($events)
+                                @foreach ($events as $event)
+
+                                <tr>
+                                    <th></th>
+                                            <td>{{$event->date}} : {{$event->EventType}} : {{$event->Arg2}}</td>
+                                            
+                                        
+                                </tr>
+                                @endforeach
+
+                                @endif
+
                             </table>
                         </div>
                     </div>
