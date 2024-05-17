@@ -19,10 +19,7 @@ class ProductDataTable extends DataTable
             ->addColumn('action', function ($data) {
                 return view('product::products.partials.actions', compact('data'));
             })
-            ->addColumn('product_image', function ($data) {
-                $url = $data->getFirstMediaUrl('images', 'thumb');
-                return '<img src="'.$url.'" border="0" width="50" class="img-thumbnail" align="center"/>';
-            })
+
 
             ->rawColumns(['product_image']);
     }
@@ -57,9 +54,6 @@ class ProductDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('product_image')
-                ->title('Image')
-                ->className('text-center align-middle'),
 
             Column::make('product_name')
                 ->title('Name')
@@ -85,6 +79,9 @@ class ProductDataTable extends DataTable
             Column::make('category.category_name')
                 ->title('Site')
                 
+                ->className('text-center align-middle'),
+            Column::make('product_order_tax')
+                ->title('Revenue Share')
                 ->className('text-center align-middle'),
 
             Column::computed('action')

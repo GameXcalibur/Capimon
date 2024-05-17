@@ -14,7 +14,7 @@
     <div class="container-fluid mb-4">
 
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -33,7 +33,10 @@
                                     <td>{{ $product->category->category_name }}</td>
                                 </tr>
 
-
+                                <tr>
+                                    <th>Revenue Share</th>
+                                    <td>{{ $product->product_order_tax }}</td>
+                                </tr>
                                 <tr>
                                     <th>Note</th>
                                     <td>{{ $product->product_note ?? 'N/A' }}</td>
@@ -49,17 +52,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3">
-                <div class="card h-100">
-                    <div class="card-body">
-                        @forelse($product->getMedia('images') as $media)
-                            <img src="{{ $media->getUrl() }}" alt="Product Image" class="img-fluid img-thumbnail mb-2">
-                        @empty
-                            <img src="{{ $product->getFirstMediaUrl('images') }}" alt="Product Image" class="img-fluid img-thumbnail mb-2">
-                        @endforelse
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 @endsection

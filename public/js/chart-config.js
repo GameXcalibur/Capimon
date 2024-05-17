@@ -55,13 +55,13 @@ $(document).ready(function () {
       data: {
         labels: response.months,
         datasets: [{
-          label: 'Coin In',
+          label: 'Coin Out',
           data: response.payment_sent,
           fill: false,
           borderColor: '#EA580C',
           tension: 0
         }, {
-          label: 'Coin Out',
+          label: 'Coin In',
           data: response.payment_received,
           fill: false,
           borderColor: '#2563EB',
