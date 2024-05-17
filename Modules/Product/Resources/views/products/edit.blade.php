@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="category_id">Site <span class="text-danger">*</span></label>
                                         <select class="form-control" name="category_id" id="category_id" required>
@@ -51,13 +51,18 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="product_order_tax">Revenue Share <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="product_order_tax" required value="{{ $product->product_order_tax }}">
+                                        </div>
+                                    </div>
                                 <input type="hidden" class="form-control" name="product_unit" value="EA" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_barcode_symbology" value="C128" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_cost" value="100" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_price" value="100" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_quantity" value="10000" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_stock_alert" value="100" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_order_tax" value="100" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_tax_type" value="1" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_unit" value="EA" >
 
