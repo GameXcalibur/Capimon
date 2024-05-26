@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Create Machine')
+@section('title', 'Create Asset')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Machines</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Assets</a></li>
         <li class="breadcrumb-item active">Add</li>
     </ol>
 @endsection
@@ -18,7 +18,7 @@
                 <div class="col-lg-12">
                     @include('utils.alerts')
                     <div class="form-group">
-                        <button class="btn btn-primary">Create Machine <i class="bi bi-check"></i></button>
+                        <button class="btn btn-primary">Create Asset <i class="bi bi-check"></i></button>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -27,13 +27,13 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="product_name">Machine Name <span class="text-danger">*</span></label>
+                                        <label for="product_name">Asset Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="product_name" required value="{{ old('product_name') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="product_code">Machine Identifier <span class="text-danger">*</span></label>
+                                        <label for="product_code">Asset Identifier <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="product_code" required value="{{ old('product_code') }}">
                                     </div>
                                 </div>

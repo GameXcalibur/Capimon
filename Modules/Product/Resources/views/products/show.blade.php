@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Machine Details')
+@section('title', 'Asset Details')
 
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Machines</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Assets</a></li>
         <li class="breadcrumb-item active">Details</li>
     </ol>
 @endsection
@@ -20,7 +20,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped mb-0">
                                 <tr>
-                                    <th>Machine Identifier</th>
+                                    <th>Asset Identifier</th>
                                     <td>{{ $product->product_code }}</td>
                                 </tr>
 
@@ -36,6 +36,28 @@
                                 <tr>
                                     <th>Revenue Share</th>
                                     <td>{{ $product->product_order_tax }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Lifetime Coin In</th>
+                                    <td>R{{ $totalCoinIn/100 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Lifetime Coin Out</th>
+                                    <td>R{{ $totalCoinOut/100 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Lifetime Revenue / Revenue After Split</th>
+                                    <td>R{{ $totalCoinRev/100 }} / R{{ $totalCoinRevSplit/100 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Cash Up / Amount</th>
+                                    <td>R{{ $lastCash }} / R{{ $lastCashAmt }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Running Asset Revenue</th>
+                                    <td>R{{ $totalCoinRev/100 }}</td>
                                 </tr>
                                 <tr>
                                     <th>Note</th>

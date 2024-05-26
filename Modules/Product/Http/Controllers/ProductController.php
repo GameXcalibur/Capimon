@@ -14,10 +14,19 @@ use Modules\Product\Http\Requests\UpdateProductRequest;
 use Modules\Upload\Entities\Upload;
 use App\Models\CmEventType;
 
+use Carbon\Carbon;
+
 class ProductController extends Controller
 {
 
     public function index(ProductDataTable $dataTable) {
+        abort_if(Gate::denies('access_products'), 403);
+
+        return $dataTable->render('product::products.index');
+    }
+
+
+    public function indexSite(ProductDataTable $dataTable) {
         abort_if(Gate::denies('access_products'), 403);
 
         return $dataTable->render('product::products.index');
@@ -49,17 +58,36 @@ class ProductController extends Controller
     public function show(Product $product) {
         abort_if(Gate::denies('show_products'), 403);
         $events = \DB::table('cme'.\Auth::user()->customers_id)->where('AssetId', $product->product_code)->get();
+        $totalCoinIn = 0;
+        $totalCoinOut = 0;
+        $totalCoinRev = 0;
+        $totalCoinRevSplit = 0;
+        $lastCash = 0;
+        $lastCashAmt = 0;
+        $runningAmt = 0;
+
+
         foreach($events as &$event){
-            if($event->EventType == 2 || $event->EventType == 3)
+            if($event->EventType == 3){
+                $totalCoinOut += $event->Arg2;
+
                 $event->Arg2 = 'R'.$event->Arg2/100;
-            else{
+            }else if($event->EventType == 2 ){
+                $totalCoinIn += $event->Arg2;
+
+                $event->Arg2 = 'R'.$event->Arg2/100;
+
+            }else{
                 $event->Arg2 = '-';
             }
             $event->EventType = CmEventType::where('EventId', $event->EventType)->first()->EventName;
-
+            $event->date = Carbon::parse($event->date)->addHours(2);
 
         }
-        return view('product::products.show', compact('product', 'events'));
+
+        $totalCoinRev = $totalCoinIn - $totalCoinOut;
+        $totalCoinRevSplit = ($product->product_order_tax/100)*$totalCoinRev;
+        return view('product::products.show', compact('product', 'events', 'totalCoinIn', 'totalCoinOut', 'totalCoinRev', 'totalCoinRevSplit', 'lastCash', 'lastCashAmt', 'lastCashAmt', 'runningAmt'));
     }
 
 

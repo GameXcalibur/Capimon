@@ -57,7 +57,7 @@ class ProductCategoriesDataTable extends DataTable
                 ->addClass('text-center'),
 
             Column::make('products_count')
-            ->title('Machine Count')
+            ->title('Asset Count')
 
                 ->addClass('text-center'),
 
