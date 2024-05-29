@@ -13,6 +13,8 @@ use Modules\Product\Http\Requests\StoreProductRequest;
 use Modules\Product\Http\Requests\UpdateProductRequest;
 use Modules\Upload\Entities\Upload;
 use App\Models\CmEventType;
+use App\Models\CmAsset;
+
 
 use Carbon\Carbon;
 
@@ -41,15 +43,23 @@ class ProductController extends Controller
 
 
     public function store(StoreProductRequest $request) {
+        //dd($request);
         $product = Product::create($request->except('document'));
+        $asset_create = CmAsset::create([
+            'CustomerId' => \Auth::user()->customers_id,
+            'AssetId' => $request['product_code'],
+            'Site' => $request['category_id'],
+            'Type' => $request['product_name'],
+            'RevenueShare' => $request['product_order_tax'],
 
+        ]);
         if ($request->has('document')) {
             foreach ($request->input('document', []) as $file) {
                 $product->addMedia(Storage::path('temp/dropzone/' . $file))->toMediaCollection('images');
             }
         }
 
-        toast('Machine Created!', 'success');
+        toast('Asset Created!', 'success');
 
         return redirect()->route('products.index');
     }
@@ -99,6 +109,13 @@ class ProductController extends Controller
 
 
     public function update(UpdateProductRequest $request, Product $product) {
+        $cmAsset = CmAsset::where('AssetId', $product->product_code)->first();
+        $cmAsset->update([
+            'AssetId' => $request['product_code'],
+            'Site' => $request['category_id'],
+            'Type' => $request['product_name'],
+            'RevenueShare' => $request['product_order_tax'],
+        ]);
         $product->update($request->except('document'));
 
         if ($request->has('document')) {
@@ -119,7 +136,7 @@ class ProductController extends Controller
             }
         }
 
-        toast('Machine Updated!', 'info');
+        toast('Asset Updated!', 'info');
 
         return redirect()->route('products.index');
     }
@@ -127,10 +144,14 @@ class ProductController extends Controller
 
     public function destroy(Product $product) {
         abort_if(Gate::denies('delete_products'), 403);
+        
+        $cmAsset = CmAsset::where('AssetId', $product->product_code)->first();
+        $cmAsset->delete();
 
         $product->delete();
 
-        toast('Machine Deleted!', 'warning');
+
+        toast('Asset Deleted!', 'warning');
 
         return redirect()->route('products.index');
     }
