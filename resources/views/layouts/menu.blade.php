@@ -4,25 +4,11 @@
     </a>
 </li>
 
-@can('access_products')
-<li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('products.*') || request()->routeIs('product-categories.*') ? 'c-show' : '' }}">
-    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-        <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Sites
-    </a>
-    <ul class="c-sidebar-nav-dropdown-items">
-        @can('access_product_categories')
-        <li class="c-sidebar-nav-item">
+<li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link {{ request()->routeIs('product-categories.*') ? 'c-active' : '' }}" href="{{ route('product-categories.index') }}">
-                <i class="c-sidebar-nav-icon bi bi-collection" style="line-height: 1;"></i> All Sites
+                <i class="c-sidebar-nav-icon bi bi-collection" style="line-height: 1;"></i> Sites
             </a>
         </li>
-        @endcan
-
-
-    </ul>
-</li>
-@endcan
-
 
 @can('access_reports')
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('*-report.index') ? 'c-show' : '' }}">
