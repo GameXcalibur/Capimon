@@ -143,7 +143,7 @@ class ProductController extends Controller
 
         toast('Asset Updated!', 'info');
 
-        return redirect()->route('products.index');
+        return redirect()->route('index.site', ['site' => $request['category_id']]);
     }
 
 

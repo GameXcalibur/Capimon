@@ -70,8 +70,8 @@ class CategoriesController extends Controller
         abort_if(Gate::denies('access_product_categories'), 403);
 
         $category = Category::findOrFail($id);
-
-        if ($category->products()->isNotEmpty()) {
+        $products = Product::where('category_id', $category->id)->first();
+        if ($products) {
             return back()->withErrors('Can\'t delete beacuse there are products associated with this category.');
         }
 
