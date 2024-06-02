@@ -26,7 +26,7 @@ class ProductDataTable extends DataTable
 
     public function query(Product $model)
     {
-        return $model->newQuery()->with('category');
+        return $model->newQuery()->where('category_id', $this->site)->with('category');
     }
 
     public function html()

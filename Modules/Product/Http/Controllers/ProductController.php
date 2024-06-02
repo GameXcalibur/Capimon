@@ -32,7 +32,7 @@ class ProductController extends Controller
         abort_if(Gate::denies('access_products'), 403);
        // dd($datetables, $site, 'TEST');
 
-        return $dataTable->render('product::products.index', ['site_id' => $site]);
+        return $dataTable->with('site', $site)->render('product::products.index', ['site_id' => $site]);
     }
 
 
