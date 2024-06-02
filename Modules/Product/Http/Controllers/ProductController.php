@@ -30,6 +30,7 @@ class ProductController extends Controller
 
     public function indexSite(ProductDataTable $dataTable, $site) {
         abort_if(Gate::denies('access_products'), 403);
+       // dd($datetables, $site, 'TEST');
 
         return $dataTable->render('product::products.index', ['site_id' => $site]);
     }
@@ -65,7 +66,7 @@ class ProductController extends Controller
 
         toast('Asset Created!', 'success');
 
-        return redirect()->route('products.index');
+        return redirect()->route('index.site', ['site' => $request['category_id']]);
     }
 
 
@@ -148,7 +149,7 @@ class ProductController extends Controller
 
     public function destroy(Product $product) {
         abort_if(Gate::denies('delete_products'), 403);
-        
+        $site_id = $product->category_id;
         $cmAsset = CmAsset::where('AssetId', $product->product_code)->first();
         $cmAsset->delete();
 
@@ -157,6 +158,6 @@ class ProductController extends Controller
 
         toast('Asset Deleted!', 'warning');
 
-        return redirect()->route('products.index');
+        return redirect()->route('index.site', ['site' => $site_id]);
     }
 }

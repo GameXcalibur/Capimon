@@ -52,7 +52,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="product_order_tax">Revenue Share <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="product_order_tax" required value="{{ old('product_order_tax') }}">
+                                            <input type="text"  class="form-control" name="product_order_tax" required value="{{ old('product_order_tax') }}">
                                         </div>
                                     </div>
                                     <input type="hidden" class="form-control" name="product_unit" value="EA" >
@@ -100,6 +100,10 @@
 @push('page_scripts')
     <script>
 
+function add_percent_sign(){
+    var t = document.getElementById('product_code').value;
+
+}
 
 function split_product_key() {
     var t = document.getElementById('product_code').value.toUpperCase();
@@ -108,6 +112,7 @@ function split_product_key() {
     var key = t.replace(/([\w]{3})([\w]{3})([\w]{2})/, function(match, p1, p2, p3, offset, string){
         return [p1, p2, p3].join('-');
     });
+    //console.log('TEST ' + key);
     document.getElementById('product_code').value = key;
     //return key;
 }
