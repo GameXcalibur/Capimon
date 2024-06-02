@@ -74,7 +74,7 @@ class CategoriesController extends Controller
         $category = Category::findOrFail($id);
         $products = Product::where('category_id', $category->id)->first();
         if ($products) {
-            return back()->withErrors('Can\'t delete beacuse there are products associated with this category.');
+            return back()->withErrors('Can\'t delete beacuse there are assets associated with this site.');
         }
 
         $category->delete();
