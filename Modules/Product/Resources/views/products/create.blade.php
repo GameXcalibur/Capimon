@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <ol class="breadcrumb border-0 m-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Assets</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('index.site', ['site' => $site_id]) }}">Assets</a></li>
         <li class="breadcrumb-item active">Add</li>
     </ol>
 @endsection
@@ -34,7 +34,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_code">Asset Identifier <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="product_code" required value="{{ old('product_code') }}">
+                                        <input type="text" maxlength='9' class="form-control" name="product_code" placeholder='XXX-XXX-XX' id='product_code' onkeyup='split_product_key();' required value="{{ old('product_code') }}">
                                     </div>
                                 </div>
                             </div>
@@ -44,9 +44,8 @@
                                     <div class="form-group">
                                         <label for="category_id">Site <span class="text-danger">*</span></label>
                                         <select class="form-control" name="category_id" id="category_id" required>
-                                            <option value="" selected disabled>Select Category</option>
                                             @foreach(\Modules\Product\Entities\Category::all() as $category)
-                                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                <option value="{{ $category->id }}" {{ $category->id == $site_id ? 'selected' : ''}}>{{ $category->category_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -100,6 +99,21 @@
 
 @push('page_scripts')
     <script>
+
+
+function split_product_key() {
+    var t = document.getElementById('product_code').value.toUpperCase();
+
+
+    var key = t.replace(/([\w]{3})([\w]{3})([\w]{2})/, function(match, p1, p2, p3, offset, string){
+        return [p1, p2, p3].join('-');
+    });
+    document.getElementById('product_code').value = key;
+    //return key;
+}
+
+
+
         var uploadedDocumentMap = {}
         Dropzone.options.documentDropzone = {
             url: '{{ route('dropzone.upload') }}',

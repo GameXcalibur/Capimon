@@ -28,19 +28,23 @@ class ProductController extends Controller
     }
 
 
-    public function indexSite(ProductDataTable $dataTable) {
+    public function indexSite(ProductDataTable $dataTable, $site) {
         abort_if(Gate::denies('access_products'), 403);
 
-        return $dataTable->render('product::products.index');
+        return $dataTable->render('product::products.index', ['site_id' => $site]);
     }
 
 
     public function create() {
         abort_if(Gate::denies('create_products'), 403);
-
         return view('product::products.create');
     }
 
+    public function createSite($site) {
+        //dd($site);
+        abort_if(Gate::denies('create_products'), 403);
+        return view('product::products.create', ['site_id' => $site]);
+    }
 
     public function store(StoreProductRequest $request) {
         //dd($request);

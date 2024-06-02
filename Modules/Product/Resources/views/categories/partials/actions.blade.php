@@ -1,9 +1,10 @@
+<a href="{{ route('index.site', $data->id) }}" class="btn btn-success btn-sm" title='View Site Assets'>
+    <i class="bi bi-eye"></i>
+</a>
 <a href="{{ route('product-categories.edit', $data->id) }}" class="btn btn-info btn-sm" title='Edit Site'>
     <i class="bi bi-pencil"></i>
 </a>
-<a href="{{ route('index.site', $data->id) }}" class="btn btn-success btn-sm" title='View Site Machines'>
-    <i class="bi bi-eye"></i>
-</a>
+
 <button id="delete" class="btn btn-danger btn-sm" onclick="
     event.preventDefault();
     if (confirm('Are you sure? It will delete the data permanently!')) {

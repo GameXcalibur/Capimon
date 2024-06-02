@@ -21,7 +21,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('products.create') }}" class="btn btn-primary">
+                        <a href="{{ route('create.site', ['site' => $site_id]) }}" class="btn btn-primary">
                             Add Asset <i class="bi bi-plus"></i>
                         </a>
 
