@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Gate;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
 
-use Modules\Product\DataTables\ProductCategoriesDataTable;
+use Modules\Product\DataTables\SitesDataTable;
 
 class CategoriesController extends Controller
 {
 
-    public function index(ProductCategoriesDataTable $dataTable) {
+    public function index(SitesDataTable $dataTable) {
         abort_if(Gate::denies('access_product_categories'), 403);
 
         return $dataTable->render('product::categories.index');
