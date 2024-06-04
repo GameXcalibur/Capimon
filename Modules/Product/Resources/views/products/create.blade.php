@@ -34,7 +34,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_code">Asset Identifier <span class="text-danger">*</span></label>
-                                        <input type="text" maxlength='9' class="form-control" name="product_code" placeholder='XXX-XXX-XX' id='product_code' onkeyup='split_product_key();' required value="{{ old('product_code') }}">
+                                        <input type="text" maxlength='10' class="form-control" name="product_code" style="text-transform: uppercase" placeholder='XXX-XXX-XX' id='product_code' onkeydown='product_key_down();' onkeyup='product_key_up();' required value="{{ old('product_code') }}">
                                     </div>
                                 </div>
                             </div>
@@ -105,16 +105,37 @@ function add_percent_sign(){
 
 }
 
-function split_product_key() {
-    var t = document.getElementById('product_code').value.toUpperCase();
 
 
-    var key = t.replace(/([\w]{3})([\w]{3})([\w]{2})/, function(match, p1, p2, p3, offset, string){
-        return [p1, p2, p3].join('-');
-    });
-    //console.log('TEST ' + key);
-    document.getElementById('product_code').value = key;
-    //return key;
+
+var globText;
+
+function product_key_down() {
+
+    var textLength = document.getElementById('product_code').value.length;
+
+    if(textLength == 0) {
+        globText = "";
+    }
+
+}
+
+function product_key_up() {
+
+    var t = document.getElementById('product_code').value;
+
+    var globTextLength = globText.length;
+
+    if(globTextLength < 10){
+        globText += t.slice(-1).toUpperCase();
+        globTextLength += 1;
+        if((globTextLength == 3) || (globTextLength == 7)){
+            globText += "-";
+        }
+    }
+
+    document.getElementById('product_code').value = globText;
+
 }
 
 
