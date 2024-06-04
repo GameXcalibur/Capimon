@@ -115,6 +115,7 @@ function product_key_down() {
     var textLength = document.getElementById('product_code').value.length;
 
     if(textLength == 0) {
+        document.getElementById('product_code').style.border = "";
         globText = "";
     }
 
@@ -132,10 +133,30 @@ function product_key_up() {
         if((globTextLength == 3) || (globTextLength == 7)){
             globText += "-";
         }
+        if(globTextLength == 10){
+            if(!product_key_validate()){
+                globText = "";
+            }
+        }
     }
 
     document.getElementById('product_code').value = globText;
 
+}
+
+function product_key_validate() {
+ 
+    let pKeyVal = globText;
+    let pKeyBox = document.getElementById('product_code');
+    let keyMask = /^([A-Z]{3})-([0-9]{3})-([A-Z]{2})$/;
+        
+    if(keyMask.test(pKeyVal)) {
+        return true;
+    } else {
+        pKeyBox.style.border = "red solid 3px";
+        alert("Not a valid asset identifier!\n Please retype it.");
+        return false;
+    }
 }
 
 
