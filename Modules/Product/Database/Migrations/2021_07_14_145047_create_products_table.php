@@ -22,7 +22,6 @@ class CreateProductsTable extends Migration
             $table->integer('product_cost');
             $table->integer('product_price');
             $table->string('product_unit')->nullable();
-            $table->integer('product_stock_alert');
             $table->integer('product_order_tax')->nullable();
             $table->text('product_note')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->restrictOnDelete();

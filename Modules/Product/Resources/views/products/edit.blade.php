@@ -52,16 +52,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="product_order_tax">Revenue Share <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="product_order_tax" required value="{{ $product->product_order_tax }}">
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="product_order_tax">Revenue Share <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="product_order_tax" required value="{{ $product->product_order_tax }}">
                                     </div>
-                                <input type="hidden" name="product_unit" value="EA" >
+                                </div>
                                 <input type="hidden" name="product_cost" value="100" >
                                 <input type="hidden" name="product_price" value="100" >
                                 <input type="hidden" name="product_quantity" value="10000" >
-                                <input type="hidden" name="product_stock_alert" value="100" >
                                 <input type="hidden" name="product_unit" value="EA" >
 
 

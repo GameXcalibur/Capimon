@@ -66,11 +66,9 @@
                             <textarea name="product_note" id="product_note" rows="4 " class="form-control"></textarea>
                         </div>
                             <input type="hidden" name="category_id" value="{{$site_id}}">
-                            <input type="hidden" name="product_unit" value="EA" >
                             <input type="hidden" name="product_cost" value="100" >
                             <input type="hidden" name="product_price" value="100" >
                             <input type="hidden" name="product_quantity" value="10000" >
-                            <input type="hidden" name="product_stock_alert" value="100" >
                             <input type="hidden" name="product_unit" value="EA" >
                     </div>
                     <div class="modal-footer">
