@@ -20,9 +20,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <!-- <a href="{{ route('create.site', ['site' => $site_id]) }}" class="btn btn-primary">
-                            Add Asset <i class="bi bi-plus"></i>
-                        </a> -->
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assetCreateModal">
                             Add Asset <i class="bi bi-plus"></i>
