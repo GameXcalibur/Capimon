@@ -63,22 +63,8 @@
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_stock_alert" value="100" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_tax_type" value="1" >
                                     <input type="hidden" class="form-product_barcode_symbology" name="product_unit" value="EA" >
-
-
-
-
-
-
-
-
-
                                 </div>
-
                             </div>
-
-
-
-
                             <div class="form-group">
                                 <label for="product_note">Note</label>
                                 <textarea name="product_note" id="product_note" rows="4 " class="form-control"></textarea>
@@ -86,8 +72,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </form>
     </div>
@@ -161,75 +145,75 @@ function product_key_validate() {
 
 
 
-        var uploadedDocumentMap = {}
-        Dropzone.options.documentDropzone = {
-            url: '{{ route('dropzone.upload') }}',
-            maxFilesize: 1,
-            acceptedFiles: '.jpg, .jpeg, .png',
-            maxFiles: 3,
-            addRemoveLinks: true,
-            dictRemoveFile: "<i class='bi bi-x-circle text-danger'></i> remove",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            success: function (file, response) {
-                $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">');
-                uploadedDocumentMap[file.name] = response.name;
-            },
-            removedfile: function (file) {
-                file.previewElement.remove();
-                var name = '';
-                if (typeof file.file_name !== 'undefined') {
-                    name = file.file_name;
-                } else {
-                    name = uploadedDocumentMap[file.name];
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('dropzone.delete') }}",
-                    data: {
-                        '_token': "{{ csrf_token() }}",
-                        'file_name': `${name}`
-                    },
-                });
-                $('form').find('input[name="document[]"][value="' + name + '"]').remove();
-            },
-            init: function () {
-                @if(isset($product) && $product->getMedia('images'))
-                var files = {!! json_encode($product->getMedia('images')) !!};
-                for (var i in files) {
-                    var file = files[i];
-                    this.options.addedfile.call(this, file);
-                    this.options.thumbnail.call(this, file, file.original_url);
-                    file.previewElement.classList.add('dz-complete');
-                    $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">');
-                }
-                @endif
-            }
-        }
+        // var uploadedDocumentMap = {}
+        // Dropzone.options.documentDropzone = {
+        //     url: '{{ route('dropzone.upload') }}',
+        //     maxFilesize: 1,
+        //     acceptedFiles: '.jpg, .jpeg, .png',
+        //     maxFiles: 3,
+        //     addRemoveLinks: true,
+        //     dictRemoveFile: "<i class='bi bi-x-circle text-danger'></i> remove",
+        //     headers: {
+        //         "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        //     },
+        //     success: function (file, response) {
+        //         $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">');
+        //         uploadedDocumentMap[file.name] = response.name;
+        //     },
+        //     removedfile: function (file) {
+        //         file.previewElement.remove();
+        //         var name = '';
+        //         if (typeof file.file_name !== 'undefined') {
+        //             name = file.file_name;
+        //         } else {
+        //             name = uploadedDocumentMap[file.name];
+        //         }
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "{{ route('dropzone.delete') }}",
+        //             data: {
+        //                 '_token': "{{ csrf_token() }}",
+        //                 'file_name': `${name}`
+        //             },
+        //         });
+        //         $('form').find('input[name="document[]"][value="' + name + '"]').remove();
+        //     },
+        //     init: function () {
+        //         @if(isset($product) && $product->getMedia('images'))
+        //         var files = {!! json_encode($product->getMedia('images')) !!};
+        //         for (var i in files) {
+        //             var file = files[i];
+        //             this.options.addedfile.call(this, file);
+        //             this.options.thumbnail.call(this, file, file.original_url);
+        //             file.previewElement.classList.add('dz-complete');
+        //             $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">');
+        //         }
+        //         @endif
+        //     }
+        // }
     </script>
 
     <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
     <script>
-        $(document).ready(function () {
-            $('#product_cost').maskMoney({
-                prefix:'{{ settings()->currency->symbol }}',
-                thousands:'{{ settings()->currency->thousand_separator }}',
-                decimal:'{{ settings()->currency->decimal_separator }}',
-            });
-            $('#product_price').maskMoney({
-                prefix:'{{ settings()->currency->symbol }}',
-                thousands:'{{ settings()->currency->thousand_separator }}',
-                decimal:'{{ settings()->currency->decimal_separator }}',
-            });
+        // $(document).ready(function () {
+        //     $('#product_cost').maskMoney({
+        //         prefix:'{{ settings()->currency->symbol }}',
+        //         thousands:'{{ settings()->currency->thousand_separator }}',
+        //         decimal:'{{ settings()->currency->decimal_separator }}',
+        //     });
+        //     $('#product_price').maskMoney({
+        //         prefix:'{{ settings()->currency->symbol }}',
+        //         thousands:'{{ settings()->currency->thousand_separator }}',
+        //         decimal:'{{ settings()->currency->decimal_separator }}',
+        //     });
 
-            $('#product-form').submit(function () {
-                var product_cost = $('#product_cost').maskMoney('unmasked')[0];
-                var product_price = $('#product_price').maskMoney('unmasked')[0];
-                $('#product_cost').val(product_cost);
-                $('#product_price').val(product_price);
-            });
-        });
+        //     $('#product-form').submit(function () {
+        //         var product_cost = $('#product_cost').maskMoney('unmasked')[0];
+        //         var product_price = $('#product_price').maskMoney('unmasked')[0];
+        //         $('#product_cost').val(product_cost);
+        //         $('#product_price').val(product_price);
+        //     });
+        // });
     </script>
 @endpush
 
