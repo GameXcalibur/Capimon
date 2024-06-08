@@ -57,14 +57,12 @@
                                             <input type="text" class="form-control" name="product_order_tax" required value="{{ $product->product_order_tax }}">
                                         </div>
                                     </div>
-                                <input type="hidden" class="form-control" name="product_unit" value="EA" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_barcode_symbology" value="C128" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_cost" value="100" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_price" value="100" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_quantity" value="10000" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_stock_alert" value="100" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_tax_type" value="1" >
-                                    <input type="hidden" class="form-product_barcode_symbology" name="product_unit" value="EA" >
+                                <input type="hidden" name="product_unit" value="EA" >
+                                <input type="hidden" name="product_cost" value="100" >
+                                <input type="hidden" name="product_price" value="100" >
+                                <input type="hidden" name="product_quantity" value="10000" >
+                                <input type="hidden" name="product_stock_alert" value="100" >
+                                <input type="hidden" name="product_unit" value="EA" >
 
 
                             </div>

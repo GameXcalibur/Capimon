@@ -8,6 +8,9 @@
 <a href="{{ route('products.edit', $data->id) }}" class="btn btn-info btn-sm" title='Edit Asset'>
     <i class="bi bi-pencil"></i>
 </a>
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editAssetModal">
+    Edit Asset <i class="bi bi-plus"></i>
+</button> -->
 @endcan
 
 @can('delete_products')

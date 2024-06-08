@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assetCreateModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAssetModal">
                             Add Asset <i class="bi bi-plus"></i>
                         </button>
 
@@ -37,11 +37,11 @@
     </div>
     
      <!-- Create Modal -->
-    <div class="modal fade" id="assetCreateModal" tabindex="-1" role="dialog" aria-labelledby="assetCreateModal" aria-hidden="true">
+    <div class="modal fade" id="createAssetModal" tabindex="-1" role="dialog" aria-labelledby="createAssetModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="assetCreateModalLabel">Add Asset</h5>
+                    <h5 class="modal-title" id="createAssetModalLabel">Add Asset</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -65,14 +65,12 @@
                             <label for="product_note">Note</label>
                             <textarea name="product_note" id="product_note" rows="4 " class="form-control"></textarea>
                         </div>
-                            <input type="hidden" name="category_id" value="{{$site_id}}"></input>
+                            <input type="hidden" name="category_id" value="{{$site_id}}">
                             <input type="hidden" name="product_unit" value="EA" >
-                            <input type="hidden" name="product_barcode_symbology" value="C128" >
                             <input type="hidden" name="product_cost" value="100" >
                             <input type="hidden" name="product_price" value="100" >
                             <input type="hidden" name="product_quantity" value="10000" >
                             <input type="hidden" name="product_stock_alert" value="100" >
-                            <input type="hidden" name="product_tax_type" value="1" >
                             <input type="hidden" name="product_unit" value="EA" >
                     </div>
                     <div class="modal-footer">
@@ -82,7 +80,10 @@
             </div>
         </div>
     </div>
+
 @endsection
+
+
 
 @push('page_scripts')
     {!! $dataTable->scripts() !!}
