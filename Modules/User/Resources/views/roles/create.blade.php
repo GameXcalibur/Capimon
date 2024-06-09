@@ -323,59 +323,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Expenses Permission -->
-                                <div class="col-lg-4 col-md-6 mb-3">
-                                    <div class="card h-100 border-0 shadow">
-                                        <div class="card-header">
-                                            Expenses
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="access_expenses" name="permissions[]"
-                                                               value="access_expenses" {{ old('access_expenses') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="access_expenses">Access</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="create_expenses" name="permissions[]"
-                                                               value="create_expenses" {{ old('create_expenses') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="create_expenses">Create</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="edit_expenses" name="permissions[]"
-                                                               value="edit_expenses" {{ old('edit_expenses') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="edit_expenses">Edit</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="delete_expenses" name="permissions[]"
-                                                               value="delete_expenses" {{ old('delete_expenses') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="delete_expenses">Delete</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="access_expense_categories" name="permissions[]"
-                                                               value="access_expense_categories" {{ old('access_expense_categories') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="access_expense_categories">Category</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <!-- Customers Permission -->
                                 <div class="col-lg-4 col-md-6 mb-3">
                                     <div class="card h-100 border-0 shadow">

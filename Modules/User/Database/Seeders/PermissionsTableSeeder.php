@@ -34,8 +34,6 @@ class PermissionsTableSeeder extends Seeder
             'delete_products',
             //Product Categories
             'access_product_categories',
-            //Barcode Printing
-            'print_barcodes',
             //Adjustments
             'access_adjustments',
             'create_adjustments',
@@ -52,13 +50,6 @@ class PermissionsTableSeeder extends Seeder
             'create_quotation_sales',
             //Send Quotation On Email
             'send_quotation_mails',
-            //Expenses
-            'access_expenses',
-            'create_expenses',
-            'edit_expenses',
-            'delete_expenses',
-            //Expense Categories
-            'access_expense_categories',
             //Customers
             'access_customers',
             'create_customers',
