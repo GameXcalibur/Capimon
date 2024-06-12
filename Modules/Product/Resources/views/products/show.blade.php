@@ -14,7 +14,7 @@
     <div class="container-fluid mb-4">
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="line-height: 0.5">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -23,7 +23,6 @@
                                     <th>Asset Identifier</th>
                                     <td>{{ $product->product_code }}</td>
                                 </tr>
-
                                 <tr>
                                     <th>Name</th>
                                     <td>{{ $product->product_name }}</td>

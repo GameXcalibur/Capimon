@@ -49,6 +49,7 @@ class SitesDataTable extends DataTable
         return [
             Column::make('category_code')
             ->title('Site Code')
+            ->visible(false)
                 ->addClass('text-center'),
 
             Column::make('category_name')
