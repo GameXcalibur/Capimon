@@ -24,6 +24,7 @@ class ProductController extends Controller
     public function index(ProductDataTable $dataTable) {
         abort_if(Gate::denies('access_products'), 403);
 
+
         return $dataTable->render('product::products.index');
     }
 
@@ -32,7 +33,13 @@ class ProductController extends Controller
         abort_if(Gate::denies('access_products'), 403);
        // dd($datetables, $site, 'TEST');
 
-        return $dataTable->with('site', $site)->render('product::products.index', ['site_id' => $site]);
+       $assets = Product::where('category_id', $site)->pluck('product_code')->toArray();
+       $coinIn = \DB::table('cme'.\Auth::user()->customers_id)->whereIn('AssetId', $assets)->where('EventType', 2)->sum('Arg2')/100;
+       $coinOut = \DB::table('cme'.\Auth::user()->customers_id)->whereIn('AssetId', $assets)->where('EventType', 3)->sum('Arg2')/100;
+
+
+
+        return $dataTable->with('site', $site)->render('product::products.index', ['site_id' => $site, 'coinIn' => $coinIn, 'coinOut' => $coinOut]);
     }
 
 

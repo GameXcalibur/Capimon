@@ -3,6 +3,8 @@
 namespace Modules\Product\DataTables;
 
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Category;
+
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -19,7 +21,13 @@ class ProductDataTable extends DataTable
             ->addColumn('action', function ($data) {
                 return view('product::products.partials.actions', compact('data'));
             })
+            ->addColumn('coin_in', function ($data) {
 
+                return \DB::table('cme'.\Auth::user()->customers_id)->where('AssetId', $data->product_code)->where('EventType', 2)->sum('Arg2')/100;
+            })
+            ->addColumn('coin_out', function ($data) {
+                return \DB::table('cme'.\Auth::user()->customers_id)->where('AssetId', $data->product_code)->where('EventType', 3)->sum('Arg2')/100;
+            })
 
             ->rawColumns(['product_image']);
     }
@@ -83,7 +91,12 @@ class ProductDataTable extends DataTable
             Column::make('product_order_tax')
                 ->title('Revenue Share')
                 ->className('text-center align-middle'),
-
+            Column::computed('coin_in')
+                ->title('Coin In')
+                ->className('text-center align-middle'),
+            Column::computed('coin_out')
+                ->title('Coin Out')
+                ->className('text-center align-middle'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
