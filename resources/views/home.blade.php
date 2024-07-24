@@ -20,7 +20,7 @@
                         </div>
                         <div>
                             <div class="text-value text-primary">{{ format_currency($revenue) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Coin In</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Total In</div>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <div class="text-value text-warning">{{ format_currency($sale_returns) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Coin Out</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Total Out</div>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         </div>
                         <div>
                             <div class="text-value text-success">{{ $num_machines ?? '0' }} / {{ $num_sites ?? '0' }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Machines / Sites</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Assets / Sites</div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div>
                             <div class="text-value text-info">{{ format_currency($profit) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Money In Machines</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Profits</div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <div class="col-lg-12">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header">
-                        Coin In & Coin Out of Last 7 Days
+                        Total In & Total Out of Last 7 Days
                     </div>
                     <div class="card-body">
                         <canvas id="salesPurchasesChart"></canvas>
@@ -93,7 +93,7 @@
             <div class="col-lg-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header">
-                        Monthly Cash Flow (Payment Sent & Received)
+                        Monthly Cash Flow
                     </div>
                     <div class="card-body">
                         <canvas id="paymentChart"></canvas>

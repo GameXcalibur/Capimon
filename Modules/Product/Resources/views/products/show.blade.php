@@ -67,7 +67,6 @@
                                     <th>Events</th>
                                     @if (!$events)
                                         <td>No Recorded Events</td>
-                                        
                                     @endif
                                 </tr>
                                 @if ($events)
@@ -75,9 +74,7 @@
 
                                 <tr>
                                     <th>{{$event->date}}</th>
-                                            <td>{{$event->EventType}} : {{$event->Arg2}}</td>
-                                            
-                                        
+                                            <td>{{$event->EventType}} : {{$event->Arg2}}</td>       
                                 </tr>
                                 @endforeach
 
@@ -88,8 +85,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection

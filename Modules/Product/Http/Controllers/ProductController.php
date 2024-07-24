@@ -93,7 +93,7 @@ class ProductController extends Controller
                 $event->Arg2 = 'R'.$event->Arg2/100;
 
             }else{
-                $event->Arg2 = '-';
+                $event->Arg2 = '';
             }
             $event->EventType = CmEventType::where('EventId', $event->EventType)->first()->EventName;
             $event->date = Carbon::parse($event->date)->addHours(2);

@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <label for="product_code">Asset Identifier <span class="text-danger">*</span></label>
-                            <input type="text" maxlength='10' class="form-control" name="product_code" style="text-transform: uppercase" placeholder='XXX-XXX-XX' id='product_code' onkeydown='product_key_down();' onkeyup='product_key_up();' required value="{{ old('product_code') }}">
+                            <input type="text" maxlength='10' class="form-control" name="product_code" style="text-transform: uppercase" placeholder='XXX-XXX-XX' id='product_code' onkeydown='product_key_down();' onkeyup='product_key_up();' autocomplete="off" required value="{{ old('product_code') }}">
                         </div>
                         <div class="form-group">
                             <label for="product_order_tax">Revenue Share <span class="text-danger">*</span></label>
@@ -92,6 +92,10 @@ var globText;
 
 function product_key_down() {
 
+  //  var key = event.keyCode || event.charCode;
+  //  if( key == 8 || key == 46 )
+  //      return false;
+
     var textLength = document.getElementById('product_code').value.length;
 
     if(textLength == 0) {
@@ -102,6 +106,17 @@ function product_key_down() {
 }
 
 function product_key_up() {
+
+    var key = event.keyCode || event.charCode;
+    if( key == 8 || key == 46 ){
+
+        globText = globText.substring(0, globText.length - 1);
+        if((globText.length  == 3) || (globText.length  == 7)){
+            globText = globText.substring(0, globText.length - 1);
+        }
+        document.getElementById('product_code').value = globText;
+        return false;
+    }
 
     var t = document.getElementById('product_code').value;
     var pKeyBox = document.getElementById('product_code');
