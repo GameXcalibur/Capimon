@@ -20,6 +20,17 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <hr>
+                            <div class="row justify-content-center" style='text-align:center;'>
+                                <h1>SITE BREAKDOWN</h1>
+                            </div>
+                            <div class="row justify-content-center" style='text-align:center;'>
+                                <h1>TOAL COIN IN - <b>{{$coinIn}}</b></h1>
+                            </div>
+                            <div class="row justify-content-center" style='text-align:center;'>
+                                <h1>TOAL COIN OUT - <b>{{$coinOut}}</b></h1>
+                            </div>
+                        <hr>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAssetModal">
                             Add Asset <i class="bi bi-plus"></i>
