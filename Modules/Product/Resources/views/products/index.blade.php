@@ -25,10 +25,10 @@
                                 <h1>SITE BREAKDOWN</h1>
                             </div>
                             <div class="row justify-content-center" style='text-align:center;'>
-                                <h1>TOTAL IN:   <b>{{$coinIn}}</b></h1>
+                                <h1>TOTAL IN: <b>R{{$coinIn}}.00</b></h1>
                             </div>
                             <div class="row justify-content-center" style='text-align:center;'>
-                                <h1>TOTAL OUT: <b>{{$coinOut}}</b></h1>
+                                <h1>TOTAL OUT: <b>R{{$coinOut}}.00</b></h1>
                             </div>
                         <hr>
                         <!-- Button trigger modal -->
